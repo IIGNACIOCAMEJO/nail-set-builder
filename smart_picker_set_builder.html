@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WearableArt Nail Set Builder</title>
+
+  <!-- iOS & PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WearableArt">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 2rem;
+      max-width: 100%;
+      margin: auto;
+      background-color: white;
+      color: black;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      margin-top: 0.3rem;
+    }
+
+    .total {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 1.2rem;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    button:active {
+      background-color: #222;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>WearableArt Nail Set Builder</h2>
+
+  <label for="plain">Plain</label>
+  <select id="plain"></select>
+
+  <label for="basic">Basic</label>
+  <select id="basic"></select>
+
+  <label for="intricate">Intricate</label>
+  <select id="intricate"></select>
+
+  <div class="total" id="total">Total: $0.00</div>
+  <div class="warning" id="warning"></div>
+  <button onclick="resetAll()">Reset</button>
+
+  <script>
+    const totalNails = 10;
+    const pricePlain = 1.00;
+    const priceBasic = 2.00;
+    const priceIntricate = 4.50;
+
+    const plainSel = document.getElementById('plain');
+    const basicSel = document.getElementById('basic');
+    const intricateSel = document.getElementById('intricate');
+    const totalDisplay = document.getElementById('total');
+    const warningDisplay = document.getElementById('warning');
+
+    let lockState = { plain: false, basic: false, intricate: false };
+
+    function populateSelect(select, max, selected = null) {
+      select.innerHTML = '';
+      for (let i = 0; i <= max; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = i;
+        if (selected !== null && i === selected) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+
+    function updateDisplay() {
+      const plain = parseInt(plainSel.value);
+      const basic = parseInt(basicSel.value);
+      const intricate = parseInt(intricateSel.value);
+      const totalSelected = plain + basic + intricate;
+      const price = (plain * pricePlain + basic * priceBasic + intricate * priceIntricate).toFixed(2);
+      totalDisplay.textContent = `Total: $${price}`;
+      if (totalSelected > totalNails) {
+        warningDisplay.textContent = "Too many nails selected. Please adjust.";
+      } else if (totalSelected < totalNails) {
+        warningDisplay.textContent = `Add ${totalNails - totalSelected} more`;
+      } else {
+        warningDisplay.textContent = "";
+      }
+    }
+
+    function update() {
+      const plain = parseInt(plainSel.value);
+      const basic = parseInt(basicSel.value);
+      const intricate = parseInt(intricateSel.value);
+
+      const totalSelected = plain + basic + intricate;
+
+      const unlocked = Object.keys(lockState).filter(k => !lockState[k]);
+      if (unlocked.length === 1) {
+        const autoField = unlocked[0];
+        const locked1 = Object.keys(lockState).find(k => k !== autoField && lockState[k]);
+        const locked2 = Object.keys(lockState).find(k => k !== autoField && k !== locked1);
+
+        const remainingVal = totalNails - parseInt(document.getElementById(locked1).value) - parseInt(document.getElementById(locked2).value);
+        populateSelect(document.getElementById(autoField), remainingVal, remainingVal);
+        lockState[autoField] = true;
+      } else {
+        populateSelect(plainSel, totalNails - basic - intricate, plain);
+        populateSelect(basicSel, totalNails - plain - intricate, basic);
+        populateSelect(intricateSel, totalNails - plain - basic, intricate);
+      }
+
+      updateDisplay();
+    }
+
+    function resetAll() {
+      lockState = { plain: false, basic: false, intricate: false };
+      populateSelect(plainSel, totalNails, 0);
+      populateSelect(basicSel, totalNails, 0);
+      populateSelect(intricateSel, totalNails, 0);
+      plainSel.value = 0;
+      basicSel.value = 0;
+      intricateSel.value = 0;
+      updateDisplay();
+    }
+
+    plainSel.addEventListener('change', () => { lockState.plain = true; update(); });
+    basicSel.addEventListener('change', () => { lockState.basic = true; update(); });
+    intricateSel.addEventListener('change', () => { lockState.intricate = true; update(); });
+
+    resetAll();
+  </script>
+</body>
+</html>
