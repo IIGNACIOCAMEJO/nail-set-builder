@@ -112,6 +112,21 @@
       padding: 4px;
     }
 
+    .tabs.fixed-bottom {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2rem);
+      max-width: 368px;
+      margin-bottom: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      z-index: 100;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
     .tab {
       flex: 1;
       padding: 0.75rem;
@@ -492,6 +507,11 @@
       border-color: #bae6fd;
     }
 
+    .combination-item.exact-match {
+      border: 2px solid #10b981;
+      background: rgba(209, 250, 229, 0.2);
+    }
+
     .combo-price {
       font-size: 1.2rem;
       font-weight: 700;
@@ -614,10 +634,12 @@
 
       <button class="reset-button" onclick="resetAll()">✨ Start Over ✨</button>
       
-      <div class="tabs" style="margin-top: 1.5rem;">
+      <div class="tabs fixed-bottom">
         <button class="tab builder-tab active" onclick="switchTab('builder')">Builder</button>
         <button class="tab budget-tab" onclick="switchTab('budget')">Budget</button>
       </div>
+      
+      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
     </div>
 
     <!-- Budget Mode -->
@@ -665,10 +687,13 @@
         <div class="no-results">Enter your budget to see available combinations! 💖</div>
       </div>
 
-      <div class="tabs" style="margin-top: 1.5rem;">
+      <div class="tabs fixed-bottom">
         <button class="tab builder-tab" onclick="switchTab('builder')">Builder</button>
         <button class="tab budget-tab active" onclick="switchTab('budget')">Budget</button>
       </div>
+      
+      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
+    </div>
     </div>
   </div>
 
@@ -808,6 +833,15 @@
         
         // Check if price matches exactly
         const isExactMatch = Math.abs(combo.price - budget) < 0.01;
+        const exactMatchClass = isExactMatch ? ' exact-match' : '';
+        
+        return `
+          <div class="combination-item${exactMatchClass}" onclick="loadCombination(${combo.plain}, ${combo.basic}, ${combo.intricate})">
+            <div class="combo-price">${combo.price.toFixed(2)}</div>
+            <div class="combo-breakdown">${breakdown.join(' • ')}</div>
+            <div class="combo-dots">${dots}</div>
+          </div>
+        `;
         const priceDisplay = isExactMatch ? 
           `${combo.price.toFixed(2)}<br><span style="font-size: 0.8rem;">✨</span>` : 
           `${combo.price.toFixed(2)}`;
