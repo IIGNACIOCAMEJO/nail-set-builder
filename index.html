@@ -117,20 +117,19 @@
 
     .tabs.fixed-bottom {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      width: auto;
       max-width: none;
       margin-bottom: 0;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(15px);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       z-index: 100;
-      border: none;
-      border-radius: 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 4px;
     }
 
     .tab {
@@ -640,12 +639,7 @@
 
       <button class="reset-button" onclick="resetAll()">✨ Start Over ✨</button>
       
-      <div class="tabs fixed-bottom">
-        <button class="tab builder-tab active" onclick="switchTab('builder')">Builder</button>
-        <button class="tab budget-tab" onclick="switchTab('budget')">Budget</button>
-      </div>
-      
-      <div style="height: 70px;"></div> <!-- Spacer for fixed tabs -->
+      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
     </div>
 
     <!-- Budget Mode -->
@@ -693,13 +687,15 @@
         <div class="no-results">Enter your budget to see available combinations! 💖</div>
       </div>
 
-      <div class="tabs fixed-bottom">
-        <button class="tab builder-tab" onclick="switchTab('builder')">Builder</button>
-        <button class="tab budget-tab active" onclick="switchTab('budget')">Budget</button>
-      </div>
-      
-      <div style="height: 70px;"></div> <!-- Spacer for fixed tabs -->
+      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
     </div>
+  </div>
+
+  <!-- Fixed Navigation - Outside Container -->
+  <div class="tabs fixed-bottom">
+    <button class="tab builder-tab active" onclick="switchTab('builder')">Builder</button>
+    <button class="tab budget-tab" onclick="switchTab('budget')">Budget</button>
+  </div>
     </div>
   </div>
 
