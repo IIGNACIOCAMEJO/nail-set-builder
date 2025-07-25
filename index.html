@@ -104,6 +104,42 @@
       60% { transform: translateY(-4px); }
     }
 
+    .tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 4px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 0.75rem;
+      text-align: center;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, #a7f3d0, #bae6fd);
+      color: #1f2937;
+      box-shadow: 0 4px 12px rgba(167, 243, 208, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
     .picker-section {
       margin-bottom: 2rem;
     }
@@ -285,7 +321,7 @@
       50% { opacity: 0.7; }
     }
 
-    .reset-button {
+    .reset-button, .budget-btn {
       display: block;
       width: 100%;
       padding: 1rem;
@@ -300,14 +336,15 @@
       font-family: 'Quicksand', sans-serif;
       letter-spacing: 0.5px;
       box-shadow: 0 8px 25px rgba(253, 164, 175, 0.3);
+      margin-top: 1rem;
     }
 
-    .reset-button:hover {
+    .reset-button:hover, .budget-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 35px rgba(253, 164, 175, 0.4);
     }
 
-    .reset-button:active {
+    .reset-button:active, .budget-btn:active {
       transform: translateY(0);
     }
 
@@ -347,6 +384,160 @@
       background: linear-gradient(135deg, #ec4899, #f472b6);
     }
 
+    /* Budget Mode Styles */
+    .budget-input-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .budget-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-radius: 16px;
+      border: 2px solid #bae6fd;
+      background: linear-gradient(135deg, #f0f9ff, #fef7ff);
+      color: #1f2937;
+      text-align: center;
+      font-family: 'Quicksand', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .budget-input:focus {
+      outline: none;
+      border-color: #06b6d4;
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .budget-label {
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: #374151;
+    }
+
+    .filters-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-toggle {
+      flex: 1;
+      min-width: 80px;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 2px solid #e5e7eb;
+      background: white;
+      color: #6b7280;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+    }
+
+    .filter-toggle.active {
+      border-color: #10b981;
+      background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+      color: #065f46;
+    }
+
+    .filter-toggle.active.no-filter {
+      border-color: #ef4444;
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      color: #991b1b;
+    }
+
+    .sort-select {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      background: white;
+      color: #374151;
+      font-family: 'Quicksand', sans-serif;
+      cursor: pointer;
+    }
+
+    .combinations-list {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .combination-item {
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .combination-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: #bae6fd;
+    }
+
+    .combo-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1f2937;
+      float: right;
+    }
+
+    .combo-breakdown {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+
+    .combo-dots {
+      display: flex;
+      gap: 3px;
+      margin-top: 0.5rem;
+    }
+
+    .combo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e5e7eb;
+    }
+
+    .combo-dot.plain {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+
+    .combo-dot.basic {
+      background: linear-gradient(135deg, #10b981, #34d399);
+    }
+
+    .combo-dot.intricate {
+      background: linear-gradient(135deg, #ec4899, #f472b6);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: #9ca3af;
+      font-style: italic;
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 1rem;
@@ -367,6 +558,14 @@
       .total {
         font-size: 1.8rem;
       }
+
+      .filter-row {
+        flex-direction: column;
+      }
+
+      .filter-toggle {
+        min-width: auto;
+      }
     }
   </style>
 </head>
@@ -379,40 +578,99 @@
       <div class="nail-emoji">💅✨</div>
     </div>
 
-    <div class="picker-section">
-      <div class="picker-row">
-        <div class="picker plain">
-          <label class="picker-label plain" for="plain">Plain</label>
-          <div class="price-tag">-$1.00 off</div>
-          <select id="plain"></select>
+    <!-- Builder Mode -->
+    <div id="builder-content" class="tab-content active">
+      <div class="picker-section">
+        <div class="picker-row">
+          <div class="picker plain">
+            <label class="picker-label plain" for="plain">Plain</label>
+            <div class="price-tag">-$1.00 off</div>
+            <select id="plain"></select>
+          </div>
+          <div class="picker basic">
+            <label class="picker-label basic" for="basic">Basic</label>
+            <div class="price-tag">$2.00 each</div>
+            <select id="basic"></select>
+          </div>
+          <div class="picker intricate">
+            <label class="picker-label intricate" for="intricate">Intricate</label>
+            <div class="price-tag">+$2.50 extra</div>
+            <select id="intricate"></select>
+          </div>
         </div>
-        <div class="picker basic">
-          <label class="picker-label basic" for="basic">Basic</label>
-          <div class="price-tag">$2.00 each</div>
-          <select id="basic"></select>
-        </div>
-        <div class="picker intricate">
-          <label class="picker-label intricate" for="intricate">Intricate</label>
-          <div class="price-tag">+$2.50 extra</div>
-          <select id="intricate"></select>
+
+        <div class="nail-count">
+          <div>Your nail set visualization:</div>
+          <div class="nail-dots" id="nailDots"></div>
         </div>
       </div>
 
-      <div class="nail-count">
-        <div>Your nail set visualization:</div>
-        <div class="nail-dots" id="nailDots"></div>
+      <div class="total-section">
+        <div class="total-label">Total Price</div>
+        <div class="total" id="total">$0.00</div>
+      </div>
+
+      <div class="warning" id="warning" style="display: none;"></div>
+      <div class="success-message" id="success" style="display: none;"></div>
+
+      <button class="reset-button" onclick="resetAll()">✨ Start Over ✨</button>
+      
+      <div class="tabs" style="margin-top: 1.5rem;">
+        <button class="tab builder-tab active" onclick="switchTab('builder')">Builder</button>
+        <button class="tab budget-tab" onclick="switchTab('budget')">Budget</button>
       </div>
     </div>
 
-    <div class="total-section">
-      <div class="total-label">Total Price</div>
-      <div class="total" id="total">$0.00</div>
+    <!-- Budget Mode -->
+    <div id="budget-content" class="tab-content">
+      <div class="budget-input-section">
+        <label class="budget-label" for="budget-input">What's your budget?</label>
+        <input type="number" id="budget-input" class="budget-input" placeholder="$20.00" step="0.50" min="10" max="45">
+      </div>
+
+      <div class="filters-section">
+        <div class="filter-row">
+          <button class="filter-toggle" id="require-intricate" onclick="toggleFilter('requireIntricate')">
+            Must have intricate
+          </button>
+          <button class="filter-toggle" id="require-basic" onclick="toggleFilter('requireBasic')">
+            Must have basic
+          </button>
+          <button class="filter-toggle" id="require-plain" onclick="toggleFilter('requirePlain')">
+            Must have plain
+          </button>
+        </div>
+        <div class="filter-row">
+          <button class="filter-toggle no-filter" id="no-intricate" onclick="toggleFilter('noIntricate')">
+            No intricate
+          </button>
+          <button class="filter-toggle no-filter" id="no-basic" onclick="toggleFilter('noBasic')">
+            No basic
+          </button>
+          <button class="filter-toggle no-filter" id="no-plain" onclick="toggleFilter('noPlain')">
+            No plain
+          </button>
+        </div>
+        
+        <select class="sort-select" id="sort-select" onchange="updateBudgetResults()">
+          <option value="price-high">Price: High to Low</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="balanced">Most Balanced Mix</option>
+          <option value="intricate-heavy">Most Intricate</option>
+          <option value="basic-heavy">Most Basic</option>
+          <option value="plain-heavy">Most Plain</option>
+        </select>
+      </div>
+
+      <div class="combinations-list" id="combinations-list">
+        <div class="no-results">Enter your budget to see available combinations! 💖</div>
+      </div>
+
+      <div class="tabs" style="margin-top: 1.5rem;">
+        <button class="tab builder-tab" onclick="switchTab('builder')">Builder</button>
+        <button class="tab budget-tab active" onclick="switchTab('budget')">Budget</button>
+      </div>
     </div>
-
-    <div class="warning" id="warning" style="display: none;"></div>
-    <div class="success-message" id="success" style="display: none;"></div>
-
-    <button class="reset-button" onclick="resetAll()">✨ Start Over ✨</button>
   </div>
 
   <script>
@@ -430,6 +688,156 @@
     const nailDotsContainer = document.getElementById('nailDots');
 
     let lockState = { plain: false, basic: false, intricate: false };
+    let allCombinations = [];
+    let budgetFilters = { 
+      requireIntricate: false, 
+      requireBasic: false, 
+      requirePlain: false,
+      noIntricate: false,
+      noBasic: false,
+      noPlain: false
+    };
+
+    // Generate all possible combinations
+    function generateAllCombinations() {
+      const combinations = [];
+      for (let plain = 0; plain <= totalNails; plain++) {
+        for (let basic = 0; basic <= totalNails - plain; basic++) {
+          const intricate = totalNails - plain - basic;
+          if (intricate >= 0) {
+            const price = plain * pricePlain + basic * priceBasic + intricate * priceIntricate;
+            combinations.push({
+              plain,
+              basic,
+              intricate,
+              price: parseFloat(price.toFixed(2))
+            });
+          }
+        }
+      }
+      return combinations;
+    }
+
+    function switchTab(tab) {
+      // Update tab buttons - handle both top and bottom tabs
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll(`.${tab}-tab`).forEach(t => t.classList.add('active'));
+      
+      // Update content
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(`${tab}-content`).classList.add('active');
+      
+      if (tab === 'budget') {
+        updateBudgetResults();
+      }
+    }
+
+    function toggleFilter(filterName) {
+      budgetFilters[filterName] = !budgetFilters[filterName];
+      const button = document.getElementById(filterName.replace(/([A-Z])/g, '-$1').toLowerCase());
+      
+      if (budgetFilters[filterName]) {
+        button.classList.add('active');
+      } else {
+        button.classList.remove('active');
+      }
+      
+      updateBudgetResults();
+    }
+
+    function updateBudgetResults() {
+      const budget = parseFloat(document.getElementById('budget-input').value) || 0;
+      const sortBy = document.getElementById('sort-select').value;
+      const container = document.getElementById('combinations-list');
+      
+      if (budget <= 0) {
+        container.innerHTML = '<div class="no-results">Enter your budget to see available combinations! 💖</div>';
+        return;
+      }
+      
+      // Filter combinations
+      let filtered = allCombinations.filter(combo => {
+        if (combo.price > budget) return false;
+        if (budgetFilters.requireIntricate && combo.intricate === 0) return false;
+        if (budgetFilters.requireBasic && combo.basic === 0) return false;
+        if (budgetFilters.requirePlain && combo.plain === 0) return false;
+        if (budgetFilters.noIntricate && combo.intricate > 0) return false;
+        if (budgetFilters.noBasic && combo.basic > 0) return false;
+        if (budgetFilters.noPlain && combo.plain > 0) return false;
+        return true;
+      });
+      
+      // Sort combinations
+      filtered.sort((a, b) => {
+        switch (sortBy) {
+          case 'price-low':
+            return a.price - b.price;
+          case 'price-high':
+            return b.price - a.price;
+          case 'balanced':
+            const aBalance = Math.min(a.plain, a.basic, a.intricate);
+            const bBalance = Math.min(b.plain, b.basic, b.intricate);
+            return bBalance - aBalance;
+          case 'intricate-heavy':
+            return b.intricate - a.intricate;
+          case 'basic-heavy':
+            return b.basic - a.basic;
+          case 'plain-heavy':
+            return b.plain - a.plain;
+          default:
+            return a.price - b.price;
+        }
+      });
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-results">No combinations found for your budget and filters. Try increasing your budget or removing filters! 😊</div>';
+        return;
+      }
+      
+      // Display results
+      container.innerHTML = filtered.map(combo => {
+        const breakdown = [];
+        if (combo.plain > 0) breakdown.push(`${combo.plain} plain`);
+        if (combo.basic > 0) breakdown.push(`${combo.basic} basic`);
+        if (combo.intricate > 0) breakdown.push(`${combo.intricate} intricate`);
+        
+        const dots = Array(combo.plain).fill('plain')
+          .concat(Array(combo.basic).fill('basic'))
+          .concat(Array(combo.intricate).fill('intricate'))
+          .map(type => `<div class="combo-dot ${type}"></div>`)
+          .join('');
+        
+        // Check if price matches exactly
+        const isExactMatch = Math.abs(combo.price - budget) < 0.01;
+        const priceDisplay = isExactMatch ? 
+          `${combo.price.toFixed(2)}<br><span style="font-size: 0.8rem;">✨</span>` : 
+          `${combo.price.toFixed(2)}`;
+        
+        return `
+          <div class="combination-item" onclick="loadCombination(${combo.plain}, ${combo.basic}, ${combo.intricate})">
+            <div class="combo-price">${priceDisplay}</div>
+            <div class="combo-breakdown">${breakdown.join(' • ')}</div>
+            <div class="combo-dots">${dots}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadCombination(plain, basic, intricate) {
+      // Reset lock state
+      lockState = { plain: false, basic: false, intricate: false };
+      
+      // Set values
+      plainSel.value = plain;
+      basicSel.value = basic;
+      intricateSel.value = intricate;
+      
+      // Update display
+      updateDisplay();
+      
+      // Switch to builder tab
+      switchTab('builder');
+    }
 
     function populateSelect(select, max, selected = null) {
       select.innerHTML = '';
@@ -539,10 +947,16 @@
       updateDisplay();
     }
 
+    // Event listeners
     plainSel.addEventListener('change', () => { lockState.plain = true; update(); });
     basicSel.addEventListener('change', () => { lockState.basic = true; update(); });
     intricateSel.addEventListener('change', () => { lockState.intricate = true; update(); });
+    
+    // Budget input listener
+    document.getElementById('budget-input').addEventListener('input', updateBudgetResults);
 
+    // Initialize
+    allCombinations = generateAllCombinations();
     resetAll();
   </script>
 </body>
