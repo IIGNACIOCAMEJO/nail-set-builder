@@ -75,20 +75,39 @@
     button:active {
       background-color: #222;
     }
+
+    .picker-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.picker {
+  flex: 1;
+}
+
   </style>
 </head>
 
 <body>
-  <h2>WearableArt Nail Set Builder</h2>
+  <h2 style="margin-bottom: 0.25rem;">WearableArt Nail</h2>
+<h3 style="margin-top: 0; margin-bottom: 1.5rem;">Set Builder</h3>
 
-  <label for="plain">Plain</label>
-  <select id="plain"></select>
+<div class="picker-row">
+  <div class="picker">
+    <label for="plain">Plain</label>
+    <select id="plain"></select>
+  </div>
+  <div class="picker">
+    <label for="basic">Basic</label>
+    <select id="basic"></select>
+  </div>
+  <div class="picker">
+    <label for="intricate">Intricate</label>
+    <select id="intricate"></select>
+  </div>
+</div>
 
-  <label for="basic">Basic</label>
-  <select id="basic"></select>
-
-  <label for="intricate">Intricate</label>
-  <select id="intricate"></select>
 
   <div class="total" id="total">Total: $0.00</div>
   <div class="warning" id="warning"></div>
