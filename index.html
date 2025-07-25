@@ -100,6 +100,13 @@
       font-size: 1.5rem;
       margin: 0.5rem 0;
       animation: bounce 2s infinite;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease;
+    }
+
+    .nail-emoji:active {
+      transform: scale(0.95);
     }
 
     @keyframes bounce {
@@ -601,7 +608,7 @@
     <div class="header">
       <h1 class="brand-title">WearableArt Nail</h1>
       <h2 class="brand-subtitle">Set Builder</h2>
-      <div class="nail-emoji">💅✨</div>
+      <div class="nail-emoji" id="nail-emoji" onclick="handleEmojiTap()">💅✨</div>
     </div>
 
     <!-- Builder Mode -->
@@ -984,6 +991,76 @@
       updateDisplay();
     }
 
+    function handleEmojiTap() {
+      showSecretMessage();
+    }
+
+    function showSecretMessage() {
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        backdrop-filter: blur(10px);
+      `;
+      
+      // Create message card
+      const messageCard = document.createElement('div');
+      messageCard.style.cssText = `
+        background: linear-gradient(135deg, #fdf2f8, #fef7ff);
+        border-radius: 24px;
+        padding: 2rem;
+        margin: 2rem;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        max-width: 320px;
+      `;
+      
+      messageCard.innerHTML = `
+        <div style="font-size: 2rem; margin-bottom: 1rem;">💕</div>
+        <div style="font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 1.2rem; color: #ec4899; margin-bottom: 1rem;">
+          Hey Gorgeous!
+        </div>
+        <div style="font-family: 'Quicksand', sans-serif; color: #6b7280; line-height: 1.5; margin-bottom: 1.5rem;">
+          Youre doing so great dababes! Ive loved seeing how dedicated youve been figuring out this farmers market, like ive said, its inspiring. Hope this helps make your pricing easier. Keep moving forward! I love youuu!
+        </div>
+        <div style="font-family: 'Quicksand', sans-serif; font-size: 0.9rem; color: #9ca3af; margin-bottom: 1rem;">
+          - Your favorite tinkerer 👨‍💻🖤
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+          background: linear-gradient(135deg, #fda4af, #f9a8d4);
+          color: white;
+          border: none;
+          border-radius: 12px;
+          padding: 0.75rem 1.5rem;
+          font-family: 'Quicksand', sans-serif;
+          font-weight: 600;
+          cursor: pointer;
+        ">
+          buhhh love you too! 💕💅
+        </button>
+      `;
+      
+      overlay.appendChild(messageCard);
+      document.body.appendChild(overlay);
+      
+      // Remove overlay when clicking outside
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      });
+    }
+
     // Event listeners
     plainSel.addEventListener('change', () => { lockState.plain = true; update(); });
     basicSel.addEventListener('change', () => { lockState.basic = true; update(); });
@@ -992,9 +1069,63 @@
     // Budget input listener
     document.getElementById('budget-input').addEventListener('input', updateBudgetResults);
 
+    // Emoji tap listener
+    document.getElementById('nail-emoji').addEventListener('click', handleEmojiTap);
+
     // Initialize
     allCombinations = generateAllCombinations();
     resetAll();
+
+    // Register Service Worker for Offline Support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then((registration) => {
+            console.log('ServiceWorker registered successfully');
+          })
+          .catch((error) => {
+            console.log('ServiceWorker registration failed');
+          });
+      });
+    }
+
+    // Add offline/online status indicator
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine;
+      if (!isOnline) {
+        if (!document.getElementById('offline-banner')) {
+          const banner = document.createElement('div');
+          banner.id = 'offline-banner';
+          banner.innerHTML = '📱 Offline Mode - App fully functional!';
+          banner.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 10000;
+            font-family: 'Quicksand', sans-serif;
+          `;
+          document.body.appendChild(banner);
+          document.body.style.paddingTop = '40px';
+        }
+      } else {
+        const banner = document.getElementById('offline-banner');
+        if (banner) {
+          banner.remove();
+          document.body.style.paddingTop = '';
+        }
+      }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus(); // Check initial status
   </script>
 </body>
 </html>
