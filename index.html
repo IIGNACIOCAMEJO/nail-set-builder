@@ -7,10 +7,13 @@
 
   <!-- iOS & PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="WearableArt">
   <meta name="theme-color" content="#fef7ff">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon.png">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
@@ -114,17 +117,20 @@
 
     .tabs.fixed-bottom {
       position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 2rem);
-      max-width: 368px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: none;
       margin-bottom: 0;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(15px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
       z-index: 100;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: none;
+      border-radius: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px;
     }
 
     .tab {
@@ -639,7 +645,7 @@
         <button class="tab budget-tab" onclick="switchTab('budget')">Budget</button>
       </div>
       
-      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
+      <div style="height: 70px;"></div> <!-- Spacer for fixed tabs -->
     </div>
 
     <!-- Budget Mode -->
@@ -692,7 +698,7 @@
         <button class="tab budget-tab active" onclick="switchTab('budget')">Budget</button>
       </div>
       
-      <div style="height: 80px;"></div> <!-- Spacer for fixed tabs -->
+      <div style="height: 70px;"></div> <!-- Spacer for fixed tabs -->
     </div>
     </div>
   </div>
